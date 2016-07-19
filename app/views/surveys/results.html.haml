@@ -1,0 +1,19 @@
+this is the results page!
+.container
+  .row
+  
+    .col-md-3
+      %h1="YOU ARE: #{@winner.name}"
+      =image_tag(@winner.avatar.url(:medium)) if @winner.avatar
+      
+      
+    .col-md-3.col-md-offset-3
+      = image_tag "test.png"
+
+    
+
+
+.container
+  .row
+    .col-md-3.col-md-offset-3
+      =@winner.bio

@@ -1,0 +1,1 @@
+Chart::Theme.add_theme_file("#{Rails.root}/app/assets/custom_theme.yml")

@@ -1,0 +1,16 @@
+:custom_theme:
+  :colors:
+    - &blue 1267E7
+    - &yellow DFCF35
+    - &red F61801
+    - &green 0E7E06
+    - &purple 6C17DD
+    - &orange F67E03
+    - &white FFFFFF
+    - &black !str 000000
+    - &turquoise 18E1BD
+    - &light_green 6DF01B
+    - &pink F01BD2
+  :bar_colors: [ *blue, *yellow, *red, *green, *purple, *orange, *black, *turquoise, *light_green, *pink]
+  :background: *white
+  :chart_background: *white

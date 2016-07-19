@@ -1,0 +1,40 @@
+.jumbotron
+  %h1 Welcome to the best quiz ever
+
+// .center
+//     -Test.all.each do |test|
+//         .center
+//             ="Quiz name: #{test.test_name}"
+//         =link_to 'Start Quiz!', { controller: "surveys", method: "create", test_id: test.id}, {:role => 'button', class: 'btn btn-info btn-lg'}
+
+
+.row
+  .col-md-6.col-md-offset-3
+    .scrollbox
+      %table.table.table-hover.table-bordered{:style => "width:100%"}
+        .center.caption.h2 Public Tests
+        %tr 
+          %th Test Name
+          %th Actions
+        -Test.all.each do |test|
+          %tr
+            %td
+              = test.test_name
+            %td
+              = form_for @survey , url: {controller: :surveys, method: :create} do |f|
+                = hidden_field_tag(:test_id, test.id)
+                = hidden_field_tag(:question_index, -1)
+                = f.submit 'Begin Test', class: 'btn btn-primary'
+                = link_to '', test_path(id: test.id), class: 'btn btn-warning glyphicon glyphicon-pencil'    
+                = link_to 'Send Link', '#', class: 'btn btn-success'
+
+
+
+            
+            // = form_for @survey , url: {controller: :surveys, method: :create} do |f|
+            //   %p
+            //     =test.test_name
+            //   = hidden_field_tag(:test_id, test.id)
+            //   = hidden_field_tag(:question_index, -1)
+            //   = f.submit 'Begin Test', class: 'btn btn-primary'
+            //   = link_to '', test_path(id: test.id), class: 'btn btn-warning glyphicon glyphicon-pencil'

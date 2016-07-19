@@ -1,0 +1,12 @@
+.container
+    - if !@test.test_name
+        = form_for @test, url: {controller: :tests} do |f|
+            - if @test.errors.any?
+                %ul
+                    - @test.errors.full_messages.each do |message|
+                        %li= message
+            %p
+                Give your test a name: #{f.text_field :test_name}
+                = hidden_field_tag(:id, @test.id)
+                =f.submit 'Submit', class: 'btn btn-primary'
+

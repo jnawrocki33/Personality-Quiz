@@ -1,0 +1,99 @@
+
+.container
+
+    - if !@test.test_name
+        = form_for @test, url: {controller: :tests, method: :add_name} do |f|
+            %p
+                Give your test a name: #{f.text_field :test_name}
+                = hidden_field_tag(:id, @test.id)
+                =f.submit 'Submit', class: 'btn btn-primary'
+
+    - elsif @test.people.count == 0
+        .container
+            .row
+                .col-md-3
+                    .center
+                        Step 1, add some people!
+                    %br
+                    =link_to people_new_path(:test_id => @test.id), style: 'padding: 20%', class: 'btn btn-success btn-block bigger_glyph' do
+                        %i.fa.fa-users.fa-5x
+    - elsif @test.questions.count == 0
+        .container
+            .row
+                .col-md-3
+                    .center
+                        Step 1, add some people!
+                    %br
+                    =link_to people_new_path(:test_id => @test.id), style: 'padding: 20%', class: 'btn btn-default btn-block bigger_glyph' do
+                        %i.fa.fa-users.fa-5x
+                        
+                .col-md-3.col-md-offset-1
+                    .center
+                        Step 2, add some questions to the test!
+                    %br
+                    =link_to questions_new_path(:test_id => @test.id), style: 'padding: 20%', class: 'btn btn-success btn-block bigger_glyph' do
+                        %i.fa.fa-plus-square-o.fa-5x
+                        
+
+        // .container
+        //     .center Step 2, add some questions!
+        //     %i 
+        //         .center
+        //             =link_to '', questions_new_path(:test_id => @test.id), class: 'fa fa-plus-square-o fa-5x'
+                    
+    - elsif not has_complete_questions? @test
+        .container
+            .row
+                .col-md-3
+                    .center
+                        Step 1, add some people!
+                    %br
+                    =link_to people_new_path(:test_id => @test.id), style: 'padding: 20%', class: 'btn btn-default btn-block bigger_glyph' do
+                        %i.fa.fa-users.fa-5x
+                        
+                .col-md-3.col-md-offset-1
+                    .center
+                        Step 2, add some questions to the test!
+                    %br
+                    =link_to questions_new_path(:test_id => @test.id), style: 'padding: 20%', class: 'btn btn-default btn-block bigger_glyph' do
+                        %i.fa.fa-plus-square-o.fa-5x
+                .col-md-3.col-md-offset-1
+                    .center
+                        Step 3, add some options!
+                    %br
+                    =link_to questions_index_path(:test_id => @test.id), style: 'padding: 20%', class: 'btn btn-success btn-block bigger_glyph' do
+                        %i.fa.fa-arrows-alt.fa-5x
+
+    - else
+        .container
+            .row
+                .col-md-3
+                    .center
+                        Step 1, add some people!
+                    %br
+                    =link_to people_new_path(:test_id => @test.id), style: 'padding: 20%', class: 'btn btn-default btn-block bigger_glyph' do
+                        %i.fa.fa-users.fa-5x
+                        
+                .col-md-3.col-md-offset-1
+                    .center
+                        Step 2, add some questions to the test!
+                    %br
+                    =link_to questions_new_path(:test_id => @test.id), style: 'padding: 20%', class: 'btn btn-default btn-block bigger_glyph' do
+                        %i.fa.fa-plus-square-o.fa-5x
+                .col-md-3.col-md-offset-1
+                    .center
+                        Step 3, add some options!
+                    %br
+                    =link_to questions_index_path(:test_id => @test.id), style: 'padding: 20%', class: 'btn btn-default btn-block bigger_glyph' do
+                        %i.fa.fa-arrows-alt.fa-5x
+        .container
+            .row
+                .col-md-3.col-md-offset-4
+                    .center
+                        = form_for @survey , url: {controller: :surveys, method: :create} do |f|
+                            %p
+                                =@test.test_name
+                            = hidden_field_tag(:test_id, @test.id)
+                            = hidden_field_tag(:question_index, -1)
+                            = button_tag(type: 'submit', style: 'padding: 20%', class: "btn btn-success btn-block biggest_glyph") do
+                                %span.glyphicon.glyphicon-play      

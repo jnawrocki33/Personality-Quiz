@@ -1,0 +1,51 @@
+.row
+  .col-md-6.col-md-offset-3
+    %table.table.table-hover{:style => "width:100%"}
+      .center.caption.h2 #{@question.prompt}
+      -number = 1
+      %tr 
+        %th #
+        %th Option
+        -@test.people.each do |person|
+          %th Value for #{person.name}
+      -@question.options.each do |option|
+        -if option == @question.options.last
+          %tr.success
+            %td #{number}
+            %td #{option.text}
+            -option.values.each do |value|
+              %td #{value}
+          -number += 1
+        -else
+          %tr
+            %td #{number}
+            %td #{option.text}
+            -option.values.each do |value|
+              %td #{value}
+          -number += 1
+%br
+.row
+  .col-md-6.col-md-offset-3
+    = form_for @option , url: {method: :create} do |f|
+      %p
+        Option Text:
+        %br
+        =f.text_field :text, :placeholder => "Option text", style: 'width: 100%;'
+        // Option Text: #{f.text_field :text}
+      %p
+        -@test.people.each do |person|
+          ="Value for: #{person.name}"
+          %br
+          %input{:name => "option[values][]", :type => "number", :placeholder => "Integer 0 - 10", min: 0, max: 10, style: 'width: 50%;'}
+          %br
+      %p
+        = hidden_field_tag(:parent_question, @question.id)
+        = hidden_field_tag(:test_id, @test.id)
+      = f.submit 'Create', class: 'btn btn-primary '
+      
+  
+.row
+  .col-md-6.col-md-offset-3      
+    Or, make the rest of the test
+  
+    =link_to 'Back to test create', questions_index_path(:test_id => @test.id), role: 'button'

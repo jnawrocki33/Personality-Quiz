@@ -1,0 +1,35 @@
+.center
+  .h1 
+    Add a new question to the test!
+
+.row
+  .col-md-3.col-md-offset-1
+    %table.table.table-striped
+      %tr
+        %th Here are your current questions:
+      -@test.questions.each do |question|
+        -next if question.isDup
+        -if question == @test.questions.last
+          %tr.success
+            %td #{question.prompt}
+        -else
+          %tr
+            %td #{question.prompt}
+
+  .col-md-7
+    %br
+    %br
+    = form_for @question , url: {method: :create} do |f|
+      = f.text_field :prompt, :placeholder => "Question Prompt", style: 'padding: 11px; width: 50%;'
+      = hidden_field_tag(:test_id, @test.id)
+      = f.submit 'Create', class: 'btn btn-primary'
+    
+    .row
+      .col-md-5.col-md-offset-1
+        %br
+        .center
+          Done making questions?
+          %br
+          Continue making the test:
+          %br
+          =link_to ' ', @test, class: 'btn btn-success btn-block glyphicon biggest_glyph glyphicon-forward'

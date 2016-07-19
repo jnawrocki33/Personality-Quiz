@@ -1,0 +1,18 @@
+%h3
+  = "Question #{@question.question_number + 1} out of #{@question.survey.questions.count}".upcase
+  %br
+  %br
+  =@question.prompt.upcase
+
+
+.row
+  .col-md-4
+  .col-md-4
+    
+    -@question.question.options.each do |option|
+      =link_to "#{option.text}", question_path(option_id: option.id), method: :patch, :role => 'button', class: 'btn btn-primary btn-lg btn-block', :style => "white-space: normal;"
+      %br
+
+
+
+

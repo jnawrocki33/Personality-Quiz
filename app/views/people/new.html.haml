@@ -1,0 +1,42 @@
+%br
+%br
+
+.row
+  .col-md-4.col-md-offset-1
+    %table.table.table-striped
+      %tr
+        %th Here are your current people:
+        %th Icon:
+      -@test.people.each do |person|
+        -if person == @test.people.last
+          %tr.success
+            %td #{person.name}
+            %td #{image_tag(person.avatar.url(:thumb)) if person.avatar}
+        -else
+          %tr
+            %td #{person.name}
+            %td #{image_tag(person.avatar.url(:thumb)) if person.avatar}
+          
+  .col-md-2.col-md-offset-1
+    = form_for @person , url: {method: :create, multipart: true} do |f|
+      %p
+        Name:
+        %br #{f.text_field :name, :placeholder => "Name", style: 'width: 100%;'}
+      %p
+        Bio:
+        %br #{f.text_area :bio, :placeholder => "Bio", style: 'width: 100%;'}
+      %p
+        Image: #{f.file_field :avatar}
+
+
+      %p
+        = hidden_field_tag(:test_id, @test.id)
+      = f.submit 'Create', class: 'btn btn-primary'
+      
+  .col-md-2.col-md-offset-1
+    If you're done creating people, go to step 2
+    .center
+      =link_to ' ',@test, style: 'padding: 5%', class: 'btn btn-success btn-block glyphicon biggest_glyph glyphicon-forward'
+      
+
+  
