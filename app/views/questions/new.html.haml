@@ -1,35 +1,51 @@
 .center
-  .h1 
+  .h1
     Add a new question to the test!
+
+%br
+%br
 
 .row
   .col-md-3.col-md-offset-1
     %table.table.table-striped
       %tr
         %th Here are your current questions:
+        %th Actions:
       -@test.questions.each do |question|
         -next if question.isDup
         -if question == @test.questions.last
           %tr.success
             %td #{question.prompt}
+            %td
+              = link_to '', question_path(id: question.id, test_id: @test.id), method: :delete, data: {confirm: "Are you sure you want to delete this question?"}, class: 'btn btn-danger glyphicon glyphicon-trash'
+              = link_to '', '#', class: 'btn btn-warning glyphicon glyphicon-pencil'
         -else
           %tr
             %td #{question.prompt}
+            %td
+              = link_to '', question_path(id: question.id, test_id: @test.id), data: {confirm: "Are you sure you want to delete this question?"}, method: :delete, class: 'btn btn-danger glyphicon glyphicon-trash'
+              = link_to '', '#', class: 'btn btn-warning glyphicon glyphicon-pencil'
 
-  .col-md-7
+  .col-md-5
     %br
     %br
-    = form_for @question , url: {method: :create} do |f|
-      = f.text_field :prompt, :placeholder => "Question Prompt", style: 'padding: 11px; width: 50%;'
-      = hidden_field_tag(:test_id, @test.id)
-      = f.submit 'Create', class: 'btn btn-primary'
+    .well
+      = form_for @question , url: {method: :create} do |f|
+        = f.text_field :prompt, :placeholder => "Question Prompt", style: 'padding: 11px; width: 85%;', autofocus: 'true'
+        = hidden_field_tag(:test_id, @test.id)
+        = f.submit 'Create', class: 'btn btn-primary'
     
-    .row
-      .col-md-5.col-md-offset-1
-        %br
-        .center
-          Done making questions?
-          %br
-          Continue making the test:
-          %br
-          =link_to ' ', @test, class: 'btn btn-success btn-block glyphicon biggest_glyph glyphicon-forward'
+  .col-md-2
+    Done making Questions?
+    .center
+      =link_to @test, style: 'padding: 5%', class: 'btn btn-success btn-block biggest_glyph' do
+        %i.fa.fa-check
+    // .row
+    //   .col-md-5.col-md-offset-1
+    //     %br
+    //     .center
+    //       Done making questions?
+    //       %br
+    //       Continue making the test:
+    //       %br
+    //       =link_to ' ', @test, class: 'btn btn-success btn-block glyphicon biggest_glyph glyphicon-forward'

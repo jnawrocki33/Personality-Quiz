@@ -1,4 +1,7 @@
 class TestsController < ApplicationController
+  
+  #before_action :authenticate_user!
+  
   def new
     @test = Test.new
     # @test.save
@@ -7,7 +10,7 @@ class TestsController < ApplicationController
   
   
   def create
-    @test = Test.new(test_params)
+    @test = current_user.tests.new(test_params)
     # @test.update_attributes(test_name: params[:test][:test_name])
     if @test.save
       redirect_to @test
@@ -25,6 +28,12 @@ class TestsController < ApplicationController
 
   def index
     @survey = Survey.new question_index: 0
+  end
+  
+  def destroy
+    @test = Test.find(params[:id])
+    @test.destroy
+    redirect_to root_path
   end
   
   

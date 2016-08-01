@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   
+  get 'javascript_practice' => 'options#javascript_practice'
+  
+  get 'users/new'
+
+  devise_for :users
   get 'surveys/new'
 
   get 'people/new'
@@ -20,6 +25,7 @@ Rails.application.routes.draw do
   resources :surveys
   resources :tests
   resources :questions
+  resources :options
   root 'tests#index'
   get 'results' => 'surveys#results'
   patch 'tests' => 'tests#add_name'

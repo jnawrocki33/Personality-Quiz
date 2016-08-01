@@ -6,8 +6,9 @@
       %tr 
         %th #
         %th Option
-        -@test.people.each do |person|
+        -@test.people.order(:values_index).each do |person|
           %th Value for #{person.name}
+        %th Actions
       -@question.options.each do |option|
         -if option == @question.options.last
           %tr.success
@@ -15,6 +16,9 @@
             %td #{option.text}
             -option.values.each do |value|
               %td #{value}
+            %td
+              = link_to '', option_path(id: option.id, parent_question: @question.id, test_id: @test.id), method: :delete, data: {confirm: "Are you sure you want to delete this option?"}, class: 'btn btn-danger glyphicon glyphicon-trash'
+              = link_to '', edit_option_path(id: option.id, parent_question: @question.id, test_id: @test.id), method: :get, class: 'btn btn-warning glyphicon glyphicon-pencil'
           -number += 1
         -else
           %tr
@@ -22,30 +26,34 @@
             %td #{option.text}
             -option.values.each do |value|
               %td #{value}
+            %td
+              = link_to '', option_path(id: option.id, parent_question: @question.id, test_id: @test.id), method: :delete, data: {confirm: "Are you sure you want to delete this option?"}, class: 'btn btn-danger glyphicon glyphicon-trash'
+              = link_to '', edit_option_path(id: option.id, parent_question: @question.id, test_id: @test.id), method: :get, class: 'btn btn-warning glyphicon glyphicon-pencil'
           -number += 1
 %br
 .row
   .col-md-6.col-md-offset-3
-    = form_for @option , url: {method: :create} do |f|
-      %p
-        Option Text:
-        %br
-        =f.text_field :text, :placeholder => "Option text", style: 'width: 100%;'
-        // Option Text: #{f.text_field :text}
-      %p
-        -@test.people.each do |person|
-          ="Value for: #{person.name}"
+    .well
+      = form_for @option , url: {method: :create} do |f|
+        %p
+          Option Text:
           %br
-          %input{:name => "option[values][]", :type => "number", :placeholder => "Integer 0 - 10", min: 0, max: 10, style: 'width: 50%;'}
-          %br
-      %p
-        = hidden_field_tag(:parent_question, @question.id)
-        = hidden_field_tag(:test_id, @test.id)
-      = f.submit 'Create', class: 'btn btn-primary '
+          =f.text_field :text, :placeholder => "Option text", style: 'width: 100%;', autofocus: true
+          // Option Text: #{f.text_field :text}
+        %p
+          -@test.people.each do |person|
+            ="Value for: #{person.name}"
+            %br
+            %input{:name => "option[values][]", :type => "number", :placeholder => "Integer 0 - 10", min: 0, max: 10, style: 'width: 50%;'}
+            %br
+        %p
+          = hidden_field_tag(:parent_question, @question.id)
+          = hidden_field_tag(:test_id, @test.id)
+        = f.submit 'Create', class: 'btn btn-primary '
       
   
 .row
   .col-md-6.col-md-offset-3      
     Or, make the rest of the test
   
-    =link_to 'Back to test create', questions_index_path(:test_id => @test.id), role: 'button'
+    =link_to 'Back to test create', questions_index_path(:test_id => @test.id), role: 'button', "data-turbolinks" => "false"

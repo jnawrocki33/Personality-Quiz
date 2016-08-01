@@ -4,7 +4,8 @@
     - if !@test.test_name
         = form_for @test, url: {controller: :tests, method: :add_name} do |f|
             %p
-                Give your test a name: #{f.text_field :test_name}
+                Give your test a name: 
+                = f.text_field :test_name
                 = hidden_field_tag(:id, @test.id)
                 =f.submit 'Submit', class: 'btn btn-primary'
 
@@ -61,8 +62,8 @@
                     .center
                         Step 3, add some options!
                     %br
-                    =link_to questions_index_path(:test_id => @test.id), style: 'padding: 20%', class: 'btn btn-success btn-block bigger_glyph' do
-                        %i.fa.fa-arrows-alt.fa-5x
+                    =link_to questions_index_path(:test_id => @test.id), style: 'padding: 20%', "data-turbolinks" => "false", class: 'btn btn-success btn-block bigger_glyph' do
+                        %i.fa.fa-list-ol.fa-5x
 
     - else
         .container
@@ -84,8 +85,8 @@
                     .center
                         Step 3, add some options!
                     %br
-                    =link_to questions_index_path(:test_id => @test.id), style: 'padding: 20%', class: 'btn btn-default btn-block bigger_glyph' do
-                        %i.fa.fa-arrows-alt.fa-5x
+                    =link_to questions_index_path(:test_id => @test.id), style: 'padding: 20%', "data-turbolinks" => "false", class: 'btn btn-default btn-block bigger_glyph' do
+                        %i.fa.fa-list-ol.fa-5x
         .container
             .row
                 .col-md-3.col-md-offset-4

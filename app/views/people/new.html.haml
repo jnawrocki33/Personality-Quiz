@@ -1,3 +1,6 @@
+.center
+  .h1 
+    Add new people to the test!
 %br
 %br
 
@@ -7,36 +10,45 @@
       %tr
         %th Here are your current people:
         %th Icon:
+        %th Actions:
       -@test.people.each do |person|
         -if person == @test.people.last
           %tr.success
             %td #{person.name}
             %td #{image_tag(person.avatar.url(:thumb)) if person.avatar}
+            %td
+              = link_to '', person_path(id: person.id, test_id: @test.id), method: :delete, data: {confirm: "Are you sure you want to delete this person?"}, class: 'btn btn-danger glyphicon glyphicon-trash'
+              = link_to '', '#', class: 'btn btn-warning glyphicon glyphicon-pencil'
         -else
           %tr
             %td #{person.name}
             %td #{image_tag(person.avatar.url(:thumb)) if person.avatar}
+            %td
+              = link_to '', person_path(id: person.id, test_id: @test.id), method: :delete, data: {confirm: "Are you sure you want to delete this person?"}, class: 'btn btn-danger glyphicon glyphicon-trash'
+              = link_to '', '#', class: 'btn btn-warning glyphicon glyphicon-pencil'
           
-  .col-md-2.col-md-offset-1
+  .col-md-3
     = form_for @person , url: {method: :create, multipart: true} do |f|
-      %p
-        Name:
-        %br #{f.text_field :name, :placeholder => "Name", style: 'width: 100%;'}
-      %p
-        Bio:
-        %br #{f.text_area :bio, :placeholder => "Bio", style: 'width: 100%;'}
-      %p
-        Image: #{f.file_field :avatar}
-
-
-      %p
-        = hidden_field_tag(:test_id, @test.id)
-      = f.submit 'Create', class: 'btn btn-primary'
+      .well
+        %p
+          Name:
+          %br #{f.text_field :name, :placeholder => "Name", style: 'width: 100%;', autofocus: 'true'}
+      .well
+        %h4 Optional
+        %p
+          Bio:
+          %br #{f.text_area :bio, :placeholder => "Bio", style: 'width: 100%;'}
+        %p
+          Image: #{f.file_field :avatar}
+        %p
+          = hidden_field_tag(:test_id, @test.id)
+      .center= f.submit 'Create', class: 'btn btn-primary'
       
   .col-md-2.col-md-offset-1
     If you're done creating people, go to step 2
     .center
-      =link_to ' ',@test, style: 'padding: 5%', class: 'btn btn-success btn-block glyphicon biggest_glyph glyphicon-forward'
+      =link_to @test, style: 'padding: 5%', class: 'btn btn-success btn-block biggest_glyph' do
+        %i.fa.fa-check
       
 
   

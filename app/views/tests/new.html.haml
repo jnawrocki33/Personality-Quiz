@@ -1,12 +1,19 @@
+
 .container
-    - if !@test.test_name
-        = form_for @test, url: {controller: :tests} do |f|
-            - if @test.errors.any?
-                %ul
-                    - @test.errors.full_messages.each do |message|
-                        %li= message
-            %p
-                Give your test a name: #{f.text_field :test_name}
-                = hidden_field_tag(:id, @test.id)
-                =f.submit 'Submit', class: 'btn btn-primary'
+    .col-md-6
+        .well.well-lg        
+            - if !@test.test_name
+                = form_for @test, url: {controller: :tests} do |f|
+                    - if @test.errors.any?
+                        %ul
+                            - @test.errors.full_messages.each do |message|
+                                %li= message
+                    %p
+                        Give your test a name: #{f.text_field :test_name, :placeholder => "Test name", :autofocus => 'true'}
+                        = hidden_field_tag(:id, @test.id)
+                    %p
+                        Optional, give your test an image: #{f.file_field :avatar}
+                    %p
+                        .center=f.submit 'Submit', class: 'btn btn-primary'
+                        
 

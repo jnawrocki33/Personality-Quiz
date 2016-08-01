@@ -1,7 +1,8 @@
 class Test < ApplicationRecord
     
     has_many :questions, foreign_key: :test_id, dependent: :destroy
-    has_many :people, foreign_key: :test_id
+    has_many :people, foreign_key: :test_id, dependent: :destroy
+    belongs_to :user, optional: true
 
     validates :test_name, presence: true, uniqueness: {case_sensetive: false}
     

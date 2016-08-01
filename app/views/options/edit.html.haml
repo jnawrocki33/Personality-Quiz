@@ -1,0 +1,18 @@
+.row
+  .col-md-6.col-md-offset-3
+    = form_for @option , :url => option_path(@option) do |f|
+      %p
+        Option Text:
+        %br
+        =f.text_field :text, :placeholder => "Option Text", style: 'width: 100%;'
+        // Option Text: #{f.text_field :text}
+      %p
+        -@test.people.order(:values_index).each do |person|
+          ="Value for: #{person.name}"
+          %br
+          %input{:name => "option[values][]", :type => "number", :value => "#{@option.values[person.values_index]}", min: 0, max: 10, style: 'width: 50%;'}
+          %br
+      %p
+        = hidden_field_tag(:parent_question, @question.id)
+        = hidden_field_tag(:test_id, @test.id)
+      = f.submit 'Update', class: 'btn btn-primary '
