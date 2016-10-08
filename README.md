@@ -5,20 +5,7 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+This application allows users to make and take personality quizzes.
+The typical format would be a quiz titled "what ____ are you?"
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Users can chose to make quizzes private or public
